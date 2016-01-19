@@ -84,3 +84,78 @@ czy diody sygnalizujące, zawory i inne.
 
 Elementy te połączone są różnymi magistralami, co umożliwia sprawną wymianę
 informacji pomiędzy nimi.
+
+== Cykl pracy PLC
+Sterownik PLC jako element rozproszonego systemu czasu rzeczywistego, musi
+pracować cyklicznie. Tylko w ten sposób można mówić o determiniźmie czasowym
+w środowisku przemysłowym. Podstawowy cykl pracy prostego sterownika PLC
+wygląda następująco - najpierw wykonuje on czynności inicjalizujące:
+
+. Test zasilania
+. Test pamięci
+
+Następnie rozpoczyna się właściwy cykl działania:
+
+[ditaa]
+....
++---------------------------------------+
+| Test diagnostyczny                    |<---+
++---------------------------------------+    |
+                    |                        |
+                    v                        |
++---------------------------------------+    |
+| Czytanie stanów wejść                 |    |
++---------------------------------------+    |
+                    |                        |
+                    v                        |
++---------------------------------------+    |
+| Wykonanie programu użytkowego         |    |
++---------------------------------------+    |
+                    |                        |
+                    v                        |
++---------------------------------------+    |
+| Obsługa koprocesora sieci             |    |
+|(i innych koprocesorów)                |    |
++---------------------------------------+    |
+                    |                        |
+                    v                        |
++---------------------------------------+    |
+| Aktualizacja stanów wyjść             |----+
++---------------------------------------+
+....
+
+Każda z wykonywanych czynności trwa przez pewien czas i wpływa na długość cyklu,
+jednak największe znaczenie ma czas realizacji programu, który nie musi być
+stały, a więc jego wyznaczenie nie jest kwestią banalną. Ilość wymian
+wykonywanych przez koprocesor sieci zależy od długości całego cyklu, i tym samym
+wpływa na cykl wymiany informacji w całej sieci.
+
+Na czym polegają kolejne kroki cyklu?
+
+Test diagnostyczny::
+Polega na wykonaniu podstawowej diagnostyki określającej czy sterownik PLC
+może kontynuować swoją pracę. Wykonywane są np. testy konfiguracji i zasilania
+modułów. Sprawdzane jest np. czy możliwa jest komunikacja z modułami, a jeśli
+wystąpi poważny błąd to sterownik przechodzi w tryb _STOP_ i informuje o
+problemie.
+
+Czytanie stanów wejść::
+Stan wejść to podstawowe dane na których operuje sterownik PLC. W tym kroku są
+one zapisywane w pamięci. Dlatego też program nie ma dostępu do aktualnych
+stanów wejść, a jedynie do ich stanu zapisanego w tej fazie.
+
+Wykonanie programu użytkowego::
+Tutaj wykonywany jest jeden obieg programu użytkownika. Tutaj program
+przetwarza dane wejściowe i zapisuje wyniki do obszaru pamięci odpowiedzialnego
+za przechowywanie danych wyjściowych. Przetwarzane są także dane otrzymane
+przez sieć, oraz wywoływane rozkazy wykonania transmisji.
+
+Obsługa koprocesora sieci::
+W tej fazie koprocesor sieci wykonuje rozkazy transmisji otrzymane od jednostki
+centralnej. Przepisuje także otrzymane z sieci informacje do pamięci, tak aby
+w fazie wykonania programu można było z nich skorzystać.
+
+Aktualizacja stanów wyjść::
+W tym kroku dane z pamięci przepisywane są do buforów wyjściowych modułów
+wyjściowych, co następnie skutkuje uaktualnieniem poziomu elektrycznych sygnałów
+na wyjściach.
