@@ -1,0 +1,86 @@
+= Sterownik swobodnie programowalny, jako podstawowy element układu sterowania: Koprocesor sieci. Ogólna budowa i zasada działania. Buforowanie transmisji.
+Rafał Borowiak gr. 3 <raf.borowiak@gmail.com>
+24.01.2016 r.
+
+
+:doctype: article
+:listing-caption: Listing
+:pdf-page-size: A4
+
+
+== Wstęp
+Sterowniki swobodnie programowalne, w skrócie *PLC* (and. _Programmable Logic Controllers_)
+to najprościej ujmując komputery przemysłowe pod kontrolą systemu operacyjnego czasu rzeczywistego.
+W nazwie _sterownik swobodnie programowalny_ człon _sterownik_ określa funkcjonalność tego urządzenia.
+Sterowniki PLC mają za zadanie sterowaniem procesami w środowisku przemysłowym na podstawie danych uzyskanych z
+czujników pomiarowych poprzez moduły wejściowe, czy na podstawie danych uzyskanych poprzez sieć.
+Sterowanie odbywa się za pomocą modułów wyjściowych podłączonych do różnego rodzaju urządzeń wykonawczych.
+O tym, że sterownik jest _swobodnie programowalny_ świadczy fakt, że jest on komputerem i wykonuje pewien program,
+napisany z myślą o konkretnym systemie i procesie przemysłowym. Program ten może być zmieniany, nawet
+bez przerywania pracy sterownika.
+
+Podsumowując podstawową funkcjonalność sterowników programowalnych, urządzenia te:
+
+* zbierają pomiary z czujników i urządzeń pomiarowych poprzez moduły wejściowe, lub pomiary udostępnione poprzez sieć
+* przetwarzają zebrane dane zgodnie z wgranym programem
+* generują sygnały sterujące do urządzeń wykonawczych poprzez moduły wyjściowe, sterując ten sposób procesem przemysłowym
+
+i dodatkowo:
+
+* udostępniają przetworzone dane poprzez sieć
+
+== Budowa sterownika PLC
+Na rynku jest wiele producentów i rodzajów sterowników PLC. Od małych urządzeń,
+z małą ilością pamięci i niską sprawnością obliczeniową do dużych sterowników,
+które wydajnością nie ustępują najwydajniejszym komputerom ogólnego przeznaczenia.
+Sterowniki PLC można podzielić na urządzenia kompatkowe, które integrują
+niezbędne elementy sterownika w jednej obudowie, oraz na sterowniki modułowe
+które są rozszerzalne za pomocą modułów odpowiadających za daną funkcjonalność.
+W sterownikach PLC można wyróżnić następujące elementy:
+
+Moduł zasilania::
+Zazwyczaj jest to moduł wymienny, który dostępny jest w wersjach
+dostosowanych do różnych napięc zasilania (240V AC, 120V AC, czy 24V DC). Dzięki
+temu jeden sterownik PLC bezproblemowo może być użyty w wielu miejscach,
+oferujących różne standardy zasilania.
+Jednostka centralna (CPU)::
+"Serce" każdego komputera, w tym sterownika PLC. Odpowiada za wykonywanie
+instrukcji (kodu programu),tym samym za wykonywanie operacji
+arytmetyczno-logicznych i za sterowanie przepływem informacji.
+
+Pamięć::
+Jednostki pamięci z fizycznego punktu widzenia w sterownikach PLC:
+
+* pamięć ROM zawierająca system operacyjny (tzw. _firmware_)
+* pamięć RAM która zawiera wykonywany program, dane programu, obraz wejść i
+wyjść sterownika, posiada dodatkowe podtrzymanie bateryjne na wypadek awarii
+systemu zasilania
+* opcjonalnie pamięć EEPROM czy flash, która także zawiera program użytkownika
+(kopia zapasowa programu)
+
+Koprocesor sieci::
+Posiada pewne interfejsy sieciowe i umożliwia niezależną komunikację sieciową.
+Implementuje protkoły wymiany w danej sieci, zwykle są to protkoły
+deterministyczne czasowo.
+
+Moduły wejść::
+Ich zadaniem odwzorowanie sygnału elektrycznego w postaci danych cyfrowych.
+Zawierają binarne, wejścia cyfrowe, zazwyczaj izolowane galwanicznie za pomocą
+układów opto izolatorów, aby dopasować poziomy napięć wejściowych i zabezpieczyć
+elektronikę PLC. Mogą też zawierać wejścia analogowe,
+próbkujące i przetwarzające sygnały analogowe za pomocą przetwornika
+analogowo-cyfrowego.
+
+Moduły wyjść::
+Można je podzielić na trzy różne typy:
+
+* wyjścia przekaźnikowe
+* wyjścia tranzystorowe
+* wyjścia triakowe
+
+Ich zadaniem jest konwersja cyfrowych sygnałów sterujących na sygnały
+elektryczne pozwalające na sterowanie elementami zewnętrzynymi takimi jak lampy
+czy diody sygnalizujące, zawory i inne.
+
+Elementy te połączone są różnymi magistralami, co umożliwia sprawną wymianę
+informacji pomiędzy nimi.
