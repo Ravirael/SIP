@@ -98,30 +98,30 @@ Następnie rozpoczyna się właściwy cykl działania:
 
 [ditaa]
 ....
-+---------------------------------------+
-| Test diagnostyczny                    |<---+
-+---------------------------------------+    |
-                    |                        |
-                    v                        |
-+---------------------------------------+    |
-| Czytanie stanów wejść                 |    |
-+---------------------------------------+    |
-                    |                        |
-                    v                        |
-+---------------------------------------+    |
-| Wykonanie programu użytkowego         |    |
-+---------------------------------------+    |
-                    |                        |
-                    v                        |
-+---------------------------------------+    |
-| Obsługa koprocesora sieci             |    |
-|(i innych koprocesorów)                |    |
-+---------------------------------------+    |
-                    |                        |
-                    v                        |
-+---------------------------------------+    |
-| Aktualizacja stanów wyjść             |----+
-+---------------------------------------+
++-------------------------------+
+| Test diagnostyczny            |<---+
++-------------------------------+    |
+                |                    |
+                v                    |
++-------------------------------+    |
+| Czytanie stanów wejść         |    |
++-------------------------------+    |
+                |                    |
+                v                    |
++-------------------------------+    |
+| Wykonanie programu użytkowego |    |
++-------------------------------+    |
+                |                    |
+                v                    |
++-------------------------------+    |
+| Obsługa koprocesora sieci     |    |
+|(i innych koprocesorów)        |    |
++-------------------------------+    |
+                |                    |
+                v                    |
++-------------------------------+    |
+| Aktualizacja stanów wyjść     |----+
++-------------------------------+
 ....
 
 Każda z wykonywanych czynności trwa przez pewien czas i wpływa na długość cyklu,
@@ -159,3 +159,39 @@ Aktualizacja stanów wyjść::
 W tym kroku dane z pamięci przepisywane są do buforów wyjściowych modułów
 wyjściowych, co następnie skutkuje uaktualnieniem poziomu elektrycznych sygnałów
 na wyjściach.
+
+== Koprocesor sieci
+Moduł koprocesora sieci jest istotnym elementem sterownika PLC dla systemów
+rozproszonych. To on odpowiada za komunikacje z innymi urządzeniami takimi jak
+stacje robocze, czy inne urządzenia PLC poprzez sieć. Wykonuje on dwie
+podstawowe czynności:
+
+. Odbiera rozkazy od jednostki macierzystej i na jej podstawie kopiuje żądne
+obszary pamięci do bufra, opakowuje je w ramki odpowiednie dla danego protokołu
+i w odpowiednim momencie transmituje za pomocą nadajnika.
+. Odbiera i dekoduje ramki przychodzące przez sieć, jeśli są przeznaczone
+dla obsługiwanego sterownika PLC to przepisuje je do bufora odbiorczego
+i w we właściwym momencie do odpowiednego obszaru pamięci.
+
+Zadania te są realizowanie niezależnie od jenostki centralnej. Cykl pracy
+sterownika przemysłowego nie jest zsynchronizowany z cyklem obiegu informacji
+w sieci. Może to prowadzić do różnego rodzaju problemów w przypadku
+niewystarczających parametrów sieci.
+
+=== Rodzaje żądań transmisji
+==== Transmisje periodyczne
+Jednostka centralna może żądać od koprocesora transmisji danego obszaru pamięci
+co pewien interwał czasowy. Żądanie te wysyłane jest jednokrotnie, a koprocesor
+dba o mierzenie interwałów i odpowiednie wysyłanie danych. Jednak takie
+transmisje nie zawsze muszą być realizowalnej w danej sieci z zadanym protkołem
+dostępu. Koprocesor sieci może np. nie mieć tak często dostępu do łącza, z uwagi
+na cykl sieci trwający dłużej niż zadany interwał wymian periodycznych. W takim
+wypadku odbiorcy danych, otrzymają dane "nieświeże" i jest to sytuacja wysoce
+nieporządana.
+
+==== Transmisje wyzwalane
+Transmisje wyzwalane to żądania jednokrotnego przesyłu danego obszaru pamięci
+jednostki centralne. Między wystąpieniem żądania, a rzeczywistą transmisją,
+występuje pewne opóźnienie wynikające znowu z protokołu dostępu, a także z
+długości trwania cyklu sterownika, ponieważ odczyt pamięci przez koprocesor
+odbywa się dopiero po jego zakończeniu.
