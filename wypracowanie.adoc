@@ -2,24 +2,23 @@
 Rafał Borowiak gr. 3 <raf.borowiak@gmail.com>
 24.01.2016 r.
 
-:stem:
 :doctype: article
 :listing-caption: Listing
 :pdf-page-size: A4
 :imagesdir: ./images
 
 == Wstęp
-Sterowniki swobodnie programowalne, w skrócie *PLC* (and. _Programmable Logic Controllers_)
+Sterowniki swobodnie programowalne, w skrócie *PLC* (ang. _„Programmable Logic Controllers”_)
 to najprościej ujmując komputery przemysłowe pod kontrolą systemu operacyjnego czasu rzeczywistego.
-W nazwie _sterownik swobodnie programowalny_ człon _sterownik_ określa funkcjonalność tego urządzenia.
+W nazwie _„sterownik swobodnie programowalny”_ człon _„sterownik”_ określa funkcjonalność tego urządzenia.
 Sterowniki PLC mają za zadanie sterowaniem procesami w środowisku przemysłowym na podstawie danych uzyskanych z
 czujników pomiarowych poprzez moduły wejściowe, czy na podstawie danych uzyskanych poprzez sieć.
 Sterowanie odbywa się za pomocą modułów wyjściowych podłączonych do różnego rodzaju urządzeń wykonawczych.
-O tym, że sterownik jest _swobodnie programowalny_ świadczy fakt, że jest on komputerem i wykonuje pewien program,
+O tym, że sterownik jest _„swobodnie programowalny”_ świadczy fakt, że jest on komputerem i wykonuje pewien program,
 napisany z myślą o konkretnym systemie i procesie przemysłowym. Program ten może być zmieniany, nawet
 bez przerywania pracy sterownika.
 
-Podsumowując podstawową funkcjonalność sterowników programowalnych, urządzenia te:
+W skrócie przedstawiając podstawową funkcjonalność sterowników programowalnych, urządzenia te:
 
 * zbierają pomiary z czujników i urządzeń pomiarowych poprzez moduły wejściowe lub pomiary udostępnione poprzez sieć
 * przetwarzają zebrane dane zgodnie z wgranym programem
@@ -30,21 +29,22 @@ i dodatkowo:
 * udostępniają przetworzone dane poprzez sieć
 
 == Budowa sterownika PLC
-Na rynku jest wiele producentów i rodzajów sterowników PLC. Od małych urządzeń,
+Na rynku jest wiele producentów i rodzajów sterowników PLC. Od małych urządzeń
 z małą ilością pamięci i niską sprawnością obliczeniową do dużych sterowników,
 które wydajnością nie ustępują najwydajniejszym komputerom ogólnego przeznaczenia.
 Sterowniki PLC można podzielić na urządzenia kompatkowe, które integrują
-niezbędne elementy sterownika w jednej obudowie, oraz na sterowniki modułowe,
+niezbędne elementy sterownika w jednej obudowie oraz na sterowniki modułowe,
 które są rozszerzalne za pomocą modułów odpowiadających za daną funkcjonalność.
 W sterownikach PLC można wyróżnić następujące elementy:
 
 Moduł zasilania::
 Zazwyczaj jest to moduł wymienny, który dostępny jest w wersjach
-dostosowanych do różnych napięc zasilania (240V AC, 120V AC, czy 24V DC). Dzięki
-temu jeden sterownik PLC bezproblemowo może być użyty w wielu miejscach,
+dostosowanych do różnych napięc zasilania (np. 240V AC, 120V AC, czy 24V DC).
+Dzięki temu jeden sterownik PLC bezproblemowo może być użyty w wielu miejscach,
 oferujących różne standardy zasilania.
+
 Jednostka centralna (CPU)::
-"Serce" każdego komputera, w tym sterownika PLC. Odpowiada za wykonywanie
+_„Serce”_ każdego komputera, w tym sterownika PLC. Odpowiada za wykonywanie
 instrukcji (kodu programu), tym samym za wykonywanie operacji
 arytmetyczno-logicznych i za sterowanie przepływem informacji.
 
@@ -56,7 +56,7 @@ Jednostki pamięci z fizycznego punktu widzenia w sterownikach PLC:
 wyjść sterownika, posiada dodatkowe podtrzymanie bateryjne na wypadek awarii
 systemu zasilania
 * opcjonalnie pamięć EEPROM czy flash, która także zawiera program użytkownika
-(kopia zapasowa programu)
+(kopię zapasową)
 
 Koprocesor sieci::
 Posiada pewne interfejsy sieciowe i umożliwia niezależną komunikację sieciową.
@@ -66,13 +66,13 @@ deterministyczne czasowo.
 Moduły wejść::
 Ich zadaniem odwzorowanie sygnału elektrycznego w postaci danych cyfrowych.
 Zawierają binarne, wejścia cyfrowe, zazwyczaj izolowane galwanicznie za pomocą
-układów opto izolatorów, aby dopasować poziomy napięć wejściowych i zabezpieczyć
+układów opto-izolatorów, aby dopasować poziomy napięć wejściowych i zabezpieczyć
 elektronikę PLC. Mogą też zawierać wejścia analogowe,
 próbkujące i przetwarzające sygnały analogowe za pomocą przetwornika
 analogowo-cyfrowego.
 
 Moduły wyjść::
-Można je podzielić na trzy różne typy:
+Wyjścia można podzielić na trzy różne typy:
 
 * wyjścia przekaźnikowe
 * wyjścia tranzystorowe
@@ -127,8 +127,8 @@ Następnie rozpoczyna się właściwy cykl działania:
 Każda z wykonywanych czynności trwa przez pewien czas i wpływa na długość cyklu,
 jednak największe znaczenie ma czas realizacji programu, który nie musi być
 stały, a więc jego wyznaczenie nie jest kwestią banalną. Ilość wymian
-wykonywanych przez koprocesor sieci zależy od długości całego cyklu, i tym samym
-wpływa na cykl wymiany informacji w całej sieci.
+wykonywanych przez koprocesor sieci może zależeć od długości całego cyklu,
+tym samym wpływać na cykl wymiany informacji w całej sieci.
 
 Na czym polegają kolejne kroki cyklu?
 
@@ -145,13 +145,13 @@ one zapisywane w pamięci. Dlatego też program nie ma dostępu do aktualnych
 stanów wejść, a jedynie do ich stanu zapisanego w tej fazie.
 
 Wykonanie programu użytkowego::
-Tutaj wykonywany jest jeden obieg programu użytkownika. Tutaj program
+Tutaj wykonywany jest jeden obieg programu użytkownika. Program
 przetwarza dane wejściowe i zapisuje wyniki do obszaru pamięci odpowiedzialnego
 za przechowywanie danych wyjściowych. Przetwarzane są także dane otrzymane
 przez sieć oraz wywoływane rozkazy wykonania transmisji.
 
 Obsługa koprocesora sieci::
-W tej fazie koprocesor sieci wykonuje rozkazy transmisji otrzymane od jednostki
+W tej fazie koprocesor sieci otrzymuje rozkazy transmisji od jednostki
 centralnej. Przepisuje także otrzymane z sieci informacje do pamięci, tak aby
 w fazie wykonania programu można było z nich skorzystać.
 
@@ -166,7 +166,7 @@ rozproszonych. To on odpowiada za komunikacje z innymi urządzeniami takimi jak
 stacje robocze, czy inne urządzenia PLC poprzez sieć. Wykonuje on dwie
 podstawowe czynności:
 
-. Odbiera rozkazy od jednostki macierzystej i ich jej podstawie kopiuje żądne
+. Odbiera rozkazy od jednostki macierzystej i ich ich podstawie kopiuje żądne
 obszary pamięci do bufora, opakowuje je w ramki odpowiednie dla danego protokołu
 i w odpowiednim momencie transmituje za pomocą nadajnika.
 . Odbiera i dekoduje ramki przychodzące przez sieć, jeśli są przeznaczone
@@ -178,7 +178,7 @@ sterownika przemysłowego nie jest zsynchronizowany z cyklem obiegu informacji
 w sieci. Może to prowadzić do różnego rodzaju problemów w przypadku
 niewystarczających parametrów sieci.
 
-image::koprocesor.png[caption="" title="Schemat logiczny koprocesora"]
+image::koprocesor.png[Koprocesor, 600, 600, caption="Rys. 1 " title="Schemat logiczny koprocesora"]
 
 === Nadawanie
 ==== Rodzaje żądań transmisji
@@ -222,6 +222,23 @@ nie rozwiązuje całkowicie tego problemu, a jedynie odsuwa go w czasie. Dodatko
 większa liczba buforów negatywnie wpływa na czas pracy koprocesora, a w
 konsekwencji może wydłużyć czas trwania cyklu sieci.
 
+=== Buforowanie transmisji
+Koprocesor posiada pewną liczbę buforów odbiorczych i nadawczych. Umożliwiają
+one pracę koprocesora niezależnie od cyklu sterownika. Transmisje dokonywane
+między buforami odbiorczymi/nadawczymi i pamięcią jednostki centralnej mogą być
+wykonywane tylko w odpowiedniej fazie cyklu sterownika, stąd też muszą być z nim
+zsynchronizowane. Jednak transmisje pomiędzy siecią, a buforami nie muszą być
+zsynchronizowane z cyklem sterownika - koprocesor posiadając dane bufory może
+przesłać i odebrać odpowiednie dane dostosowywując się do protokołu sieci, bez
+czekania na koniec cyklu sterownika. Niesie to jednak ze sobą pewne negatywne
+konsekwencje. Przy nadawaniu, jeśli koprocesor nie zaczeka na koniec cyklu
+sterownika to tym samym nie pobierze „świeżych”  danych i wytransmituje dane
+„przestarzałe”. Przy odbiorze nie ma to znaczenia, koprocesor nie ma wpływu na
+„świeżość” odebranych danych. Istotne jednak może być potwierdzenie poprawnego
+odbioru, które generuje dopiero jednostka centralna dopiero po przepisaniu
+danych do jej pamięci i weryfikacji ich. Podsumowując zwiększanie liczby buforów
+nadawczo — odbiorczych może, ale nie musi poprawić parametrów pracy sieci.
+
 === Analiza czasowa
 Koprocesor wnosi własne narzuty czasowe związane z:
 
@@ -251,24 +268,7 @@ gdzie:
 * _L~N~_ - liczba buforów nadawczych
 * _L~O~_ - liczba buforów odbiorczych
 
-=== Buforowanie transmisji
-Koprocesor posiada pewną liczbę buforów odbiorczych i nadawczych. Umożliwiają
-one pracę koprocesora niezależnie od cyklu sterownika. Transmisje dokonywane
-między buforami odbiorczymi/nadawczymi i pamięcią jednostki centralnej mogą być
-wykonywane tylko w odpowiedniej fazie cyklu sterownika, stąd też muszą być z nim
-zsynchronizowane. Jednak transmisje pomiędzy siecią, a buforami nie muszą być
-zsynchronizowane z cyklem sterownika - koprocesor posiadając dane bufory może
-przesłać i odebrać odpowiednie dane dostosowywując się do protokołu sieci, bez
-czekania na koniec cyklu sterownika. Niesie to jednak ze sobą pewne negatywne
-konsekwencje. Przy nadawaniu, jeśli koprocesor nie zaczeka na koniec cyklu
-sterownika to tym samym nie pobierze "świeżych" danych i wytransmituje dane
-"przestarzałe". Przy odbiorze nie ma to znaczenia, koprocesor nie ma wpływu na
-"świeżość" odebranych danych. Istotne jednak może być potwierdzenie poprawnego
-odbioru, które generuje dopiero jednostka centralna dopiero po przepisaniu
-danych do jej pamięci i weryfikacji ich. Podsumowując zwiększanie liczby buforów
-nadawczo — odbiorczych może, ale nie musi poprawić parametrów pracy sieci.
-
-== Wnioski
+== Podsumowanie
 Sterowniki PLC to urządzenia mikroprocesorowe niezbędne we współczesnym
 środowisku przemysłowym. Istnieje wielu producentów sterowników PLC i także
 wiele ich rodzajów, jednak podstawy ich budowy i działania są podobne.
@@ -277,7 +277,7 @@ tylko lokalnie, ale także mogą tworzyć systemy rozproszone dzięki odrębnym,
 wbudowanym modułom sieciowym. Projektując rozproszony system przemysłowy, który
 z natury rzeczy musi być systemem czasu rzeczywistego, należy pamiętać o
 parametrach czasowych takich jak długość cyklu pracy sterowników, a także
-długość cyklu sieci i zależności między nimi przy wymianach sieciowych.
+długość cyklu sieci i o zależnościach pomiędzy nimi przy wymianach sieciowych.
 
 == Bibliografia
 [bibliography]
